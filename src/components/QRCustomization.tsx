@@ -1,11 +1,10 @@
 import { motion } from "framer-motion";
-import { Palette, Square, Circle, Upload, X } from "lucide-react";
+import { Palette, Upload, X } from "lucide-react";
 import { useRef } from "react";
 
 export interface QRCustomOptions {
   fgColor: string;
   bgColor: string;
-  cornerStyle: "square" | "rounded";
   logo: string | null;
 }
 
@@ -67,11 +66,10 @@ const QRCustomization = ({ options, onChange }: QRCustomizationProps) => {
               whileHover={{ scale: 1.15 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => onChange({ ...options, fgColor: color })}
-              className={`w-7 h-7 rounded-lg transition-all ${
-                options.fgColor === color 
-                  ? "ring-2 ring-primary ring-offset-2 ring-offset-background" 
-                  : ""
-              }`}
+              className={`w-7 h-7 rounded-lg transition-all ${options.fgColor === color
+                ? "ring-2 ring-primary ring-offset-2 ring-offset-background"
+                : ""
+                }`}
               style={{ backgroundColor: color }}
             />
           ))}
@@ -92,21 +90,19 @@ const QRCustomization = ({ options, onChange }: QRCustomizationProps) => {
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => onChange({ ...options, bgColor: "#ffffff" })}
-            className={`w-7 h-7 rounded-lg border border-border bg-white ${
-              options.bgColor === "#ffffff" 
-                ? "ring-2 ring-primary ring-offset-2 ring-offset-background" 
-                : ""
-            }`}
+            className={`w-7 h-7 rounded-lg border border-border bg-white ${options.bgColor === "#ffffff"
+              ? "ring-2 ring-primary ring-offset-2 ring-offset-background"
+              : ""
+              }`}
           />
           <motion.button
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => onChange({ ...options, bgColor: "transparent" })}
-            className={`w-7 h-7 rounded-lg border border-border bg-[repeating-conic-gradient(#ccc_0_90deg,#fff_0_180deg)_0_0/8px_8px] ${
-              options.bgColor === "transparent" 
-                ? "ring-2 ring-primary ring-offset-2 ring-offset-background" 
-                : ""
-            }`}
+            className={`w-7 h-7 rounded-lg border border-border bg-[repeating-conic-gradient(#ccc_0_90deg,#fff_0_180deg)_0_0/8px_8px] ${options.bgColor === "transparent"
+              ? "ring-2 ring-primary ring-offset-2 ring-offset-background"
+              : ""
+              }`}
           />
           <input
             type="color"
@@ -117,38 +113,7 @@ const QRCustomization = ({ options, onChange }: QRCustomizationProps) => {
         </div>
       </div>
 
-      {/* Corner Style */}
-      <div className="space-y-2">
-        <label className="text-xs text-muted-foreground">Corner Style</label>
-        <div className="flex items-center gap-2">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => onChange({ ...options, cornerStyle: "square" })}
-            className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm ${
-              options.cornerStyle === "square"
-                ? "bg-primary text-primary-foreground"
-                : "glass-panel text-muted-foreground"
-            }`}
-          >
-            <Square className="w-4 h-4" />
-            Square
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => onChange({ ...options, cornerStyle: "rounded" })}
-            className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm ${
-              options.cornerStyle === "rounded"
-                ? "bg-primary text-primary-foreground"
-                : "glass-panel text-muted-foreground"
-            }`}
-          >
-            <Circle className="w-4 h-4" />
-            Rounded
-          </motion.button>
-        </div>
-      </div>
+
 
       {/* Logo Upload */}
       <div className="space-y-2">
@@ -172,9 +137,9 @@ const QRCustomization = ({ options, onChange }: QRCustomizationProps) => {
           </motion.button>
           {options.logo && (
             <div className="relative">
-              <img 
-                src={options.logo} 
-                alt="Logo preview" 
+              <img
+                src={options.logo}
+                alt="Logo preview"
                 className="w-10 h-10 rounded-lg object-cover"
               />
               <button

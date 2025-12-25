@@ -18,7 +18,7 @@ const QRGenerator = () => {
   const [customOptions, setCustomOptions] = useState<QRCustomOptions>({
     fgColor: "#0a0a0a",
     bgColor: "#ffffff",
-    cornerStyle: "square",
+
     logo: null,
   });
   const qrRef = useRef<HTMLDivElement>(null);
@@ -45,7 +45,7 @@ const QRGenerator = () => {
 
   const downloadQR = useCallback(() => {
     if (!qrRef.current) return;
-    
+
     const svg = qrRef.current.querySelector("svg");
     if (!svg) return;
 
@@ -65,7 +65,7 @@ const QRGenerator = () => {
           ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        
+
         const link = document.createElement("a");
         link.download = "qrcode.png";
         link.href = canvas.toDataURL("image/png");
@@ -109,11 +109,11 @@ const QRGenerator = () => {
           <ScrollReveal delay={0.1} direction="left">
             <GlassCard hover={false}>
               <div className="space-y-4" onKeyPress={handleKeyPress}>
-                <QRTypeSelector 
-                  selectedType={qrType} 
-                  onSelectType={handleTypeChange} 
+                <QRTypeSelector
+                  selectedType={qrType}
+                  onSelectType={handleTypeChange}
                 />
-                
+
                 <QRTypeInputs
                   type={qrType}
                   values={inputValues}
@@ -179,7 +179,7 @@ const QRGenerator = () => {
                         value={qrValue}
                         size={180}
                         level="H"
-                        includeMargin={false}
+                        includeMargin={true}
                         fgColor={customOptions.fgColor}
                         bgColor={customOptions.bgColor === "transparent" ? "transparent" : customOptions.bgColor}
                         imageSettings={customOptions.logo ? {
@@ -203,7 +203,7 @@ const QRGenerator = () => {
                         Download
                         <span className="hidden sm:inline text-xs opacity-50">⌘S</span>
                       </motion.button>
-                      
+
                       <motion.button
                         onClick={copyToClipboard}
                         whileHover={{ scale: 1.05 }}

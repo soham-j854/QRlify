@@ -20,7 +20,7 @@ const QRTypeInputs = ({ type, values, onChange }: QRTypeInputsProps) => {
           className={inputClass}
         />
       );
-    
+
     case "wifi":
       return (
         <div className="space-y-3">
@@ -47,9 +47,21 @@ const QRTypeInputs = ({ type, values, onChange }: QRTypeInputsProps) => {
             <option value="WEP">WEP</option>
             <option value="nopass">No Password</option>
           </select>
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="hidden-network"
+              checked={values.hidden === "true"}
+              onChange={(e) => onChange("hidden", e.target.checked ? "true" : "false")}
+              className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary"
+            />
+            <label htmlFor="hidden-network" className="text-sm text-foreground">
+              Hidden Network
+            </label>
+          </div>
         </div>
       );
-    
+
     case "vcard":
       return (
         <div className="space-y-3">
@@ -83,7 +95,7 @@ const QRTypeInputs = ({ type, values, onChange }: QRTypeInputsProps) => {
           />
         </div>
       );
-    
+
     case "email":
       return (
         <div className="space-y-3">
@@ -110,7 +122,7 @@ const QRTypeInputs = ({ type, values, onChange }: QRTypeInputsProps) => {
           />
         </div>
       );
-    
+
     case "phone":
       return (
         <input
@@ -121,7 +133,7 @@ const QRTypeInputs = ({ type, values, onChange }: QRTypeInputsProps) => {
           className={inputClass}
         />
       );
-    
+
     case "sms":
       return (
         <div className="space-y-3">
@@ -141,7 +153,7 @@ const QRTypeInputs = ({ type, values, onChange }: QRTypeInputsProps) => {
           />
         </div>
       );
-    
+
     default:
       return null;
   }
@@ -154,12 +166,12 @@ export const generateQRValue = (type: QRType, values: Record<string, string>): s
   switch (type) {
     case "url":
       return values.url || "";
-    
+
     case "wifi":
       const encryption = values.encryption || "WPA";
       const hidden = values.hidden === "true" ? "H:true" : "";
       return `WIFI:T:${encryption};S:${values.ssid || ""};P:${values.password || ""};${hidden};`;
-    
+
     case "vcard":
       return `BEGIN:VCARD
 VERSION:3.0
@@ -169,7 +181,7 @@ TEL:${values.phone || ""}
 EMAIL:${values.email || ""}
 ORG:${values.company || ""}
 END:VCARD`;
-    
+
     case "email":
       let mailtoUrl = `mailto:${values.email || ""}`;
       const params = [];
@@ -177,15 +189,15 @@ END:VCARD`;
       if (values.body) params.push(`body=${encodeURIComponent(values.body)}`);
       if (params.length) mailtoUrl += `?${params.join("&")}`;
       return mailtoUrl;
-    
+
     case "phone":
       return `tel:${values.phone || ""}`;
-    
+
     case "sms":
       let smsUrl = `sms:${values.phone || ""}`;
       if (values.message) smsUrl += `?body=${encodeURIComponent(values.message)}`;
       return smsUrl;
-    
+
     default:
       return "";
   }
